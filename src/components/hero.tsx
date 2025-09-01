@@ -40,11 +40,10 @@ const dishes: DishItem[] = [
 export function Hero() {
   const [activeDishIndex, setActiveDishIndex] = useState(0);
   const activeDish = dishes[activeDishIndex];
-  const currentPlate = useRef<HTMLImageElement>(null);
 
-  // Refs to store references to dish plate elements and container
-  const dishPlates = useRef<Array<HTMLDivElement | null>>([]);
   const containerRef = useRef<HTMLDivElement>(null);
+  const dishPlates = useRef<Array<HTMLDivElement | null>>([]);
+  const currentPlate = useRef<HTMLImageElement>(null);
 
   // GSAP animation setup
   useGSAP(() => {
