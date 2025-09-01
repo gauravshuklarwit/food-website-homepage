@@ -155,7 +155,7 @@ export function Hero() {
           {/* wheel of dishes  */}
           <div
             ref={containerRef}
-            className="absolute inset-x-0 top-60 mx-auto size-120 lg:size-180 xl:top-auto xl:right-0 xl:-bottom-80 xl:left-auto"
+            className="absolute inset-x-0 top-60 mx-auto size-120 md:size-160 lg:size-180 xl:top-auto xl:right-0 xl:-bottom-80 xl:left-auto"
           >
             <svg viewBox="0 0 400 400">
               <path
@@ -177,7 +177,7 @@ export function Hero() {
                 alt={dish?.name || "Food dish"}
                 width={113}
                 height={113}
-                className="absolute top-0 left-0 z-10 size-30 lg:size-40"
+                className="absolute top-0 left-0 z-10 size-30 md:size-35 lg:size-40"
               />
             ))}
           </div>
