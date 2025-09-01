@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -29,6 +29,8 @@ const dishes: DishItem[] = [
 ];
 
 export function Hero() {
+  const [activeDish, setActiveDish] = useState(dishes[0]);
+
   // Refs to store references to dish plate elements and container
   const dishPlates = useRef<Array<HTMLDivElement | null>>([]);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -67,6 +69,10 @@ export function Hero() {
         nextIndex = Math.abs((modulus > 0 ? 360 - modulus : modulus) / step);
         return snap;
       },
+
+      onDragEnd: () => {
+        setActiveDish(dishes[nextIndex]);
+      },
     });
 
     // create quick rotation animation function
@@ -82,7 +88,14 @@ export function Hero() {
         containerRef.current,
         "rotation",
       ) as number;
-      rotateTo(currentRotation + event.deltaY * sensitivity);
+      const newRotation = currentRotation + event.deltaY * sensitivity;
+      rotateTo(newRotation);
+
+      // Calculate index manually to update activeDish
+      const snapped = gsap.utils.snap(step, newRotation);
+      const modulus = snapped % 360;
+      const newIndex = Math.abs((modulus > 0 ? 360 - modulus : modulus) / step);
+      setActiveDish(dishes[newIndex]);
     };
 
     // add wheel event listener
@@ -158,16 +171,16 @@ export function Hero() {
           </div>
 
           {/* current plate and slider controls */}
-          <div className="-order-1 grid place-content-center lg:order-1">
+          <div className="-order-1 flex flex-col items-center lg:order-1">
             <Image
-              src="/dishes/mexican.svg"
+              src={activeDish.image || "/dishes/italian.svg"}
               alt="Dish plate"
               width={250}
               height={250}
               className="size-56"
             />
             <p className="bg-primary text-muted-foreground rounded-full px-16 py-3 text-xs font-medium">
-              Mexican cuisine
+              {activeDish.name}
             </p>
           </div>
         </div>
