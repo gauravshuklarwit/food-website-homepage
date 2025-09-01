@@ -17,7 +17,11 @@ interface DishItem {
 }
 
 const dishes: DishItem[] = [
-  { name: "Italian cuisine", image: "/dishes/italian.svg", color: "#F45E5E" },
+  {
+    name: "Italian cuisine",
+    image: "/dishes/italian.svg",
+    color: "#F45E5E",
+  },
   { name: "Mexican cuisine", image: "/dishes/mexican.svg", color: "#FC9A63" },
   { name: "Non veg", image: "/dishes/non-veg.svg", color: "#f56e2e" },
   { name: "North Indian", image: "/dishes/north-indian.svg", color: "#94AC20" },
@@ -189,9 +193,11 @@ export function Hero() {
               height={250}
               className="size-56"
             />
-            <p className="bg-primary text-muted-foreground mt-3 rounded-full px-16 py-3 text-xs font-medium">
-              {activeDish?.name}
-            </p>
+            <span className="bg-primary mt-3 grid h-9 w-54 place-items-center rounded-full px-8 transition duration-200">
+              <p className="text-muted-foreground line-clamp-1 text-xs font-medium text-ellipsis">
+                {activeDish?.name}
+              </p>
+            </span>
           </div>
         </div>
       </div>
