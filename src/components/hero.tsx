@@ -224,7 +224,7 @@ export function Hero() {
             {/* controls */}
             <div className="mt-3 flex items-center justify-center">
               {/* left spoon */}
-              <div className="flex items-center">
+              <div className="flex items-center lg:hidden">
                 <button
                   className="z-10 -mr-2 cursor-pointer"
                   onClick={handlePrevious}
@@ -242,6 +242,7 @@ export function Hero() {
                   alt="left spoon handle"
                   width={59}
                   height={8}
+                  className="min-w-9"
                 />
               </div>
               {/* current dish label */}
@@ -251,12 +252,13 @@ export function Hero() {
                 </p>
               </span>
               {/* right spoon */}
-              <div className="flex items-center">
+              <div className="flex items-center lg:hidden">
                 <Image
                   src="/vectors/right-spoon-handle.svg"
                   alt="right spoon handle"
                   width={59}
                   height={8}
+                  className="min-w-9"
                 />
                 <button
                   className="z-10 -ml-2 cursor-pointer"
