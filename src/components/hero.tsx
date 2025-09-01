@@ -226,7 +226,7 @@ export function Hero() {
               {/* left spoon */}
               <div className="flex items-center">
                 <button
-                  className="cursor-pointer"
+                  className="z-10 -mr-2 cursor-pointer"
                   onClick={handlePrevious}
                   aria-label="Previous"
                 >
@@ -259,7 +259,7 @@ export function Hero() {
                   height={8}
                 />
                 <button
-                  className="cursor-pointer"
+                  className="z-10 -ml-2 cursor-pointer"
                   onClick={handleNext}
                   aria-label="Next"
                 >
