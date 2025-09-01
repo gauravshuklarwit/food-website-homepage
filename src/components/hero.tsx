@@ -13,19 +13,24 @@ import { Button } from "@/components/ui/button";
 interface DishItem {
   name?: string;
   image?: string;
+  color?: string;
 }
 
 const dishes: DishItem[] = [
-  { name: "Italian", image: "/dishes/italian.svg" },
-  { name: "Mexican", image: "/dishes/mexican.svg" },
-  { name: "Non veg", image: "/dishes/non-veg.svg" },
-  { name: "North Indian", image: "/dishes/north-indian.svg" },
-  { name: "Salad", image: "/dishes/salad.svg" },
-  { name: "South Indian", image: "/dishes/south-indian.svg" },
-  { name: "Italian", image: "/dishes/italian.svg" },
-  { name: "Mexican", image: "/dishes/mexican.svg" },
-  { name: "Non veg", image: "/dishes/non-veg.svg" },
-  { name: "North Indian", image: "/dishes/north-indian.svg" },
+  { name: "Italian cuisine", image: "/dishes/italian.svg", color: "#F45E5E" },
+  { name: "Mexican cuisine", image: "/dishes/mexican.svg", color: "#FC9A63" },
+  { name: "Non veg", image: "/dishes/non-veg.svg", color: "#f56e2e" },
+  { name: "North Indian", image: "/dishes/north-indian.svg", color: "#94AC20" },
+  { name: "Healthy Salads", image: "/dishes/salad.svg", color: "#93AE75" },
+  {
+    name: "South Indian Cuisine",
+    image: "/dishes/south-indian.svg",
+    color: "#F7D297",
+  },
+  { name: "Italian cuisine", image: "/dishes/italian.svg", color: "#F45E5E" },
+  { name: "Mexican cuisine", image: "/dishes/mexican.svg", color: "#FC9A63" },
+  { name: "Non veg", image: "/dishes/non-veg.svg", color: "#f56e2e" },
+  { name: "North Indian", image: "/dishes/north-indian.svg", color: "#94AC20" },
 ];
 
 export function Hero() {
@@ -107,8 +112,13 @@ export function Hero() {
     };
   }, []);
 
+  /* className={`(--primary:${activeDish.color})`} */
+  const dynamicStyles: { [key: string]: string | number | undefined } = {
+    "--primary": activeDish.color,
+  };
+
   return (
-    <section>
+    <section style={dynamicStyles}>
       <div className="relative mx-auto max-w-7xl overflow-hidden pt-92 lg:pt-74">
         {/* curve with slider clipping - low stacking context */}
         <div className="bg-primary absolute inset-0 z-10 [clip-path:circle(67.02%_at_51%_0px)] md:[clip-path:circle(55.10%_at_51%_0px)] lg:[clip-path:circle(49%_at_63%_0px)]">
