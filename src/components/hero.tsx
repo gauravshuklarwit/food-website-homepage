@@ -113,12 +113,12 @@ export function Hero() {
       {
         opacity: 0,
         scale: 0,
-        ease: "back.inOut",
       },
       {
         opacity: 1,
         scale: 1,
-        ease: "back.inOut",
+        ease: "circ.out",
+        duration: 0.6,
       },
     );
 
