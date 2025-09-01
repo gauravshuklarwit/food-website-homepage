@@ -39,6 +39,7 @@ const dishes: DishItem[] = [
 
 export function Hero() {
   const [activeDish, setActiveDish] = useState(dishes[0]);
+  const currentPlate = useRef<HTMLImageElement>(null);
 
   // Refs to store references to dish plate elements and container
   const dishPlates = useRef<Array<HTMLDivElement | null>>([]);
@@ -107,6 +108,20 @@ export function Hero() {
       setActiveDish(dishes[newIndex]);
     };
 
+    gsap.fromTo(
+      currentPlate.current,
+      {
+        opacity: 0,
+        scale: 0,
+        ease: "back.inOut",
+      },
+      {
+        opacity: 1,
+        scale: 1,
+        ease: "back.inOut",
+      },
+    );
+
     // add wheel event listener
     document.addEventListener("wheel", handleWheel);
 
@@ -114,7 +129,7 @@ export function Hero() {
     return () => {
       document.removeEventListener("wheel", handleWheel);
     };
-  }, []);
+  }, [activeDish]);
 
   /* className={`(--primary:${activeDish.color})`} */
   const dynamicStyles: { [key: string]: string | number | undefined } = {
@@ -187,6 +202,7 @@ export function Hero() {
           {/* current plate and slider controls */}
           <div className="-order-1 flex flex-col items-center lg:order-1">
             <Image
+              ref={currentPlate}
               src={activeDish?.image || "/dishes/italian.svg"}
               alt={activeDish?.name || "Dish plate"}
               width={250}
