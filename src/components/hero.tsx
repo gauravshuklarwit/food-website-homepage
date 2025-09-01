@@ -131,7 +131,6 @@ export function Hero() {
     };
   }, [activeDish]);
 
-  /* className={`(--primary:${activeDish.color})`} */
   const dynamicStyles: { [key: string]: string | number | undefined } = {
     "--primary": activeDish.color,
   };
