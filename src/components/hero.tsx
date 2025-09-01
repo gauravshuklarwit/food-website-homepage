@@ -26,8 +26,6 @@ const dishes: DishItem[] = [
   { name: "Mexican", image: "/dishes/mexican.svg" },
   { name: "Non veg", image: "/dishes/non-veg.svg" },
   { name: "North Indian", image: "/dishes/north-indian.svg" },
-  { name: "Salad", image: "/dishes/salad.svg" },
-  { name: "South Indian", image: "/dishes/south-indian.svg" },
 ];
 
 export function Hero() {
@@ -98,9 +96,9 @@ export function Hero() {
 
   return (
     <section>
-      <div className="relative mx-auto max-w-7xl overflow-hidden pt-100 lg:pt-74">
+      <div className="relative mx-auto max-w-7xl overflow-hidden pt-92 lg:pt-74">
         {/* curve with slider clipping - low stacking context */}
-        <div className="bg-primary absolute inset-0 z-10 [clip-path:circle(74.9%_at_51%_0)] lg:[clip-path:circle(49%_at_63%_0px)]">
+        <div className="bg-primary absolute inset-0 z-10 [clip-path:circle(67.02%_at_51%_0px)] lg:[clip-path:circle(49%_at_63%_0px)]">
           {/* wheel of dishes  */}
           <div
             ref={containerRef}
@@ -133,7 +131,7 @@ export function Hero() {
         </div>
 
         {/* container with content - high stacking context */}
-        <div className="relative z-20 container grid items-end lg:grid-cols-[2fr_3fr] lg:gap-30">
+        <div className="relative z-20 container grid items-end gap-8 lg:grid-cols-[2fr_3fr] lg:gap-30">
           {/* text box */}
           <div>
             <h1 className="grid gap-1 text-3xl sm:text-5xl">
@@ -168,6 +166,9 @@ export function Hero() {
               height={250}
               className="size-56"
             />
+            <p className="bg-primary text-muted-foreground rounded-full px-16 py-3 text-xs font-medium">
+              Mexican cuisine
+            </p>
           </div>
         </div>
       </div>
