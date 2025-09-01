@@ -111,7 +111,7 @@ export function Hero() {
     <section>
       <div className="relative mx-auto max-w-7xl overflow-hidden pt-92 lg:pt-74">
         {/* curve with slider clipping - low stacking context */}
-        <div className="bg-primary absolute inset-0 z-10 [clip-path:circle(67.02%_at_51%_0px)] lg:[clip-path:circle(49%_at_63%_0px)]">
+        <div className="bg-primary absolute inset-0 z-10 [clip-path:circle(67.02%_at_51%_0px)] md:[clip-path:circle(55.10%_at_51%_0px)] lg:[clip-path:circle(49%_at_63%_0px)]">
           {/* wheel of dishes  */}
           <div
             ref={containerRef}
@@ -174,12 +174,12 @@ export function Hero() {
           <div className="-order-1 flex flex-col items-center lg:order-1">
             <Image
               src={activeDish.image || "/dishes/italian.svg"}
-              alt="Dish plate"
+              alt={activeDish.name || "Dish plate"}
               width={250}
               height={250}
               className="size-56"
             />
-            <p className="bg-primary text-muted-foreground rounded-full px-16 py-3 text-xs font-medium">
+            <p className="bg-primary text-muted-foreground mt-3 rounded-full px-16 py-3 text-xs font-medium">
               {activeDish.name}
             </p>
           </div>
