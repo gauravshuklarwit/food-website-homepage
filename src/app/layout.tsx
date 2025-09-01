@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
+import LenisScrollProvider from "@/components/lenis-provider";
 import "./globals.css";
 
 const poppins = Poppins({
@@ -21,7 +22,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${poppins.variable} antialiased`}>
-      <body>{children}</body>
+      <body>
+        <LenisScrollProvider>{children}</LenisScrollProvider>
+      </body>
     </html>
   );
 }
