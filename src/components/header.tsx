@@ -29,12 +29,9 @@ export function Header() {
 
   return (
     <header className="absolute inset-x-0 top-0 isolate z-50 py-4 lg:py-9.5">
-      <nav className="container grid items-center gap-1 max-lg:grid-cols-2 max-lg:grid-rows-2 lg:flex lg:justify-between">
+      <nav className="container flex items-center justify-between gap-1">
         {/* brand logo */}
-        <Link
-          href="/"
-          className="flex h-full items-center gap-5 max-lg:self-start"
-        >
+        <Link href="/" className="flex items-center gap-5">
           <Image
             src="/brand/logo.svg"
             alt="Food Stop logo"
@@ -54,7 +51,7 @@ export function Header() {
         </ul>
 
         {/* search box */}
-        <div className="grid grid-cols-[auto_1fr] gap-2 max-lg:col-[1/-1] max-lg:row-[2/-1]">
+        <div className="hidden grid-cols-[auto_1fr] gap-2 lg:grid">
           <Button
             variant="outline"
             size="icon"
@@ -65,13 +62,13 @@ export function Header() {
 
           <input
             type="search"
-            placeholder="Search your favourite food"
+            placeholder="Search your favorite food"
             className="border-muted min-w-25 rounded-2xl border-2 bg-[#F3F0ED] px-4 py-2 lg:min-w-72 xl:min-w-94"
           />
         </div>
 
         {/* buttons group */}
-        <div className="flex items-center justify-end lg:gap-8">
+        <div className="flex items-center lg:gap-8">
           <Button
             variant="ghost"
             size="icon"
