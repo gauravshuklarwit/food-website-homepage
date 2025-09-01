@@ -38,7 +38,8 @@ const dishes: DishItem[] = [
 ];
 
 export function Hero() {
-  const [activeDish, setActiveDish] = useState(dishes[0]);
+  const [activeDishIndex, setActiveDishIndex] = useState(0);
+  const activeDish = dishes[activeDishIndex];
   const currentPlate = useRef<HTMLImageElement>(null);
 
   // Refs to store references to dish plate elements and container
@@ -81,7 +82,7 @@ export function Hero() {
       },
 
       onDragEnd: () => {
-        setActiveDish(dishes[nextIndex]);
+        setActiveDishIndex(nextIndex);
       },
     });
 
@@ -105,7 +106,7 @@ export function Hero() {
       const snapped = gsap.utils.snap(step, newRotation);
       const modulus = snapped % 360;
       const newIndex = Math.abs((modulus > 0 ? 360 - modulus : modulus) / step);
-      setActiveDish(dishes[newIndex]);
+      setActiveDishIndex(newIndex);
     };
 
     gsap.fromTo(
@@ -129,10 +130,21 @@ export function Hero() {
     return () => {
       document.removeEventListener("wheel", handleWheel);
     };
-  }, [activeDish]);
+  }, [activeDish, activeDishIndex]);
 
   const dynamicStyles: { [key: string]: string | number | undefined } = {
     "--primary": activeDish.color,
+  };
+
+  const handlePrevious = () => {
+    setActiveDishIndex((prevIndex) =>
+      prevIndex === 0 ? dishes.length - 1 : prevIndex - 1,
+    );
+  };
+  const handleNext = () => {
+    setActiveDishIndex((prevIndex) =>
+      prevIndex === dishes.length - 1 ? 0 : prevIndex + 1,
+    );
   };
 
   return (
@@ -208,11 +220,58 @@ export function Hero() {
               height={250}
               className="size-56"
             />
-            <span className="bg-primary mt-3 grid h-9 w-54 place-items-center rounded-full px-8 transition duration-200">
-              <p className="text-muted-foreground line-clamp-1 text-xs font-medium text-ellipsis">
-                {activeDish?.name}
-              </p>
-            </span>
+
+            {/* controls */}
+            <div className="mt-3 flex items-center justify-center">
+              {/* left spoon */}
+              <div className="flex items-center">
+                <button
+                  className="cursor-pointer"
+                  onClick={handlePrevious}
+                  aria-label="Previous"
+                >
+                  <Image
+                    src="/vectors/left-spoon-container.svg"
+                    alt="left spoon container"
+                    width={56}
+                    height={35}
+                  />
+                </button>
+                <Image
+                  src="/vectors/left-spoon-handle.svg"
+                  alt="left spoon handle"
+                  width={59}
+                  height={8}
+                />
+              </div>
+              {/* current dish label */}
+              <span className="bg-primary grid h-9 w-54 place-items-center rounded-full px-8 transition duration-200">
+                <p className="text-muted-foreground line-clamp-1 text-xs font-medium text-ellipsis">
+                  {activeDish?.name}
+                </p>
+              </span>
+              {/* right spoon */}
+              <div className="flex items-center">
+                <Image
+                  src="/vectors/right-spoon-handle.svg"
+                  alt="right spoon handle"
+                  width={59}
+                  height={8}
+                />
+                <button
+                  className="cursor-pointer"
+                  onClick={handleNext}
+                  aria-label="Next"
+                >
+                  <Image
+                    src="/vectors/right-spoon-container.svg"
+                    alt="right spoon container"
+                    width={56}
+                    height={35}
+                  />
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
