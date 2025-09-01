@@ -183,14 +183,14 @@ export function Hero() {
           {/* current plate and slider controls */}
           <div className="-order-1 flex flex-col items-center lg:order-1">
             <Image
-              src={activeDish.image || "/dishes/italian.svg"}
-              alt={activeDish.name || "Dish plate"}
+              src={activeDish?.image || "/dishes/italian.svg"}
+              alt={activeDish?.name || "Dish plate"}
               width={250}
               height={250}
               className="size-56"
             />
             <p className="bg-primary text-muted-foreground mt-3 rounded-full px-16 py-3 text-xs font-medium">
-              {activeDish.name}
+              {activeDish?.name}
             </p>
           </div>
         </div>
