@@ -139,7 +139,7 @@ export function Hero() {
     <section style={dynamicStyles}>
       <div className="relative mx-auto max-w-7xl overflow-hidden pt-92 lg:pt-74">
         {/* curve with slider clipping - low stacking context */}
-        <div className="bg-primary absolute inset-0 z-10 [clip-path:circle(67.02%_at_51%_0px)] md:[clip-path:circle(55.10%_at_51%_0px)] lg:[clip-path:circle(49%_at_63%_0px)]">
+        <div className="bg-primary absolute inset-0 z-10 [clip-path:circle(67.02%_at_51%_0px)] md:[clip-path:circle(55.10%_at_51%_0px)] lg:[clip-path:circle(48.19%_at_58.98%_7px)]">
           {/* wheel of dishes  */}
           <div
             ref={containerRef}
