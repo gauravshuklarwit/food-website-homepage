@@ -37,7 +37,7 @@ export function Hero() {
 
   // GSAP animation setup
   useGSAP(() => {
-    /* make sure there are ncessary elements to work with */
+    /* make sure there are necessary elements to work with */
     if (!containerRef.current || dishPlates.current.length === 0) return;
 
     // calculate positions for circular arrangement
@@ -98,86 +98,76 @@ export function Hero() {
 
   return (
     <section>
-      <div className="relative mx-auto max-w-7xl overflow-hidden pt-74 pb-22">
-        <div className="container grid items-end gap-30 xl:grid-cols-[2fr_3fr]">
-          {/* Left side content section */}
-          <div className="z-20">
-            {/* Hero title and description */}
-            <h1 className="x grid gap-1 text-3xl sm:text-5xl">
+      <div className="relative mx-auto max-w-7xl overflow-hidden pt-100 lg:pt-74">
+        {/* curve with slider clipping - low stacking context */}
+        <div className="bg-primary absolute inset-0 z-10 [clip-path:circle(74.9%_at_51%_0)] lg:[clip-path:circle(49%_at_63%_0px)]">
+          {/* wheel of dishes  */}
+          <div
+            ref={containerRef}
+            className="absolute inset-x-0 bottom-0 size-180 lg:right-0 lg:-bottom-80 lg:left-auto"
+          >
+            <svg viewBox="0 0 400 400">
+              <path
+                strokeWidth="2"
+                stroke="currentColor"
+                id="myPath"
+                fill="none"
+                d="M396,200 C396,308.24781 308.24781,396 200,396 91.75219,396 4,308.24781 4,200 4,91.75219 91.75219,4 200,4 308.24781,4 396,91.75219 396,200 z"
+              ></path>
+            </svg>
+
+            {dishes?.map((dish, index) => (
+              <Image
+                key={index}
+                ref={(el: HTMLDivElement | null) => {
+                  dishPlates.current[index] = el;
+                }}
+                src={dish?.image || "/placeholder-image.svg"}
+                alt={dish?.name || "Food dish"}
+                width={113}
+                height={113}
+                className="absolute top-0 left-0 z-10 size-40"
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* container with content - high stacking context */}
+        <div className="relative z-20 container grid items-end lg:grid-cols-[2fr_3fr] lg:gap-30">
+          {/* text box */}
+          <div>
+            <h1 className="grid gap-1 text-3xl sm:text-5xl">
               <span className="text-primary font-semibold">Delicious.</span>
-              <span className="text-muted-foreground font-medium xl:text-4xl">
+              <span className="text-muted-foreground font-medium lg:text-4xl">
                 One stop destination
               </span>
             </h1>
 
-            {/* Description text */}
             <p className="mt-4 max-w-xl text-sm sm:mt-6">
               Hunger pangs? You&apos;re at the right stop to drive it away!
               Order delicious food or reserve a table at your next cafe from the
               comfort of your home!
             </p>
 
-            {/* Tagline */}
-            <p className="text-muted-foreground mt-10 text-2xl font-medium italic sm:mt-12 xl:mt-11 xl:text-3xl">
+            <p className="text-muted-foreground mt-10 text-2xl font-medium italic sm:mt-12 lg:mt-11 lg:text-3xl">
               One stop, Many routes
             </p>
 
-            {/* Action buttons */}
             <div className="mt-4 flex flex-wrap items-center gap-3">
               <Button variant="outline">Book a table</Button>
               <Button size="lg">Order now!</Button>
             </div>
           </div>
 
-          {/* Right side - Interactive dish wheel */}
-          <div className="-order-1 xl:order-1">
-            <div className="bg-primary absolute inset-x-0 top-0 z-10 grid aspect-square w-screen items-end justify-items-center overflow-hidden rounded-b-full xl:right-auto xl:left-0 xl:w-294 xl:translate-x-1/5 xl:-translate-y-3/5 xl:rounded-full">
-              <div
-                ref={containerRef}
-                className="size-80 translate-y-1/2 xl:size-150"
-              >
-                {/* Circular path SVG */}
-                <svg
-                  width={571}
-                  height={571}
-                  viewBox="0 0 571 571"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <g filter="url(#filter0_d_1_40)">
-                    <path
-                      d="M565.129,281.62 A280,280 0 0,0 5.129,281.62 A280,280 0 0,0 565.129,281.62 Z"
-                      transform="rotate(37.4826 285.129 281.62)"
-                      stroke="#35580F"
-                      strokeWidth={2}
-                      strokeLinejoin="round"
-                      strokeDasharray="10 20"
-                      id="myPath"
-                      fill="none"
-                      shapeRendering="crispEdges"
-                    />
-                  </g>
-                </svg>
-
-                {/* Dish plates arranged in circle */}
-                {dishes?.map((dish, index) => (
-                  <div
-                    key={index}
-                    ref={(el: HTMLDivElement | null) => {
-                      dishPlates.current[index] = el;
-                    }}
-                    className={`box absolute top-0 left-0 z-10 grid size-40 place-content-center transition-transform ${index === 0 ? "active" : ""}`}
-                  >
-                    <Image
-                      src={dish?.image || "/placeholder-image.svg"}
-                      alt={dish?.name || "Food dish"}
-                      width={113}
-                      height={113}
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
+          {/* current plate and slider controls */}
+          <div className="-order-1 grid place-content-center lg:order-1">
+            <Image
+              src="/dishes/mexican.svg"
+              alt="Dish plate"
+              width={250}
+              height={250}
+              className="size-56"
+            />
           </div>
         </div>
       </div>
