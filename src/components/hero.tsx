@@ -149,13 +149,13 @@ export function Hero() {
 
   return (
     <section style={dynamicStyles}>
-      <div className="relative mx-auto max-w-7xl overflow-hidden pt-92 lg:pt-74">
+      <div className="relative mx-auto max-w-7xl overflow-hidden pt-92 xl:pt-74">
         {/* curve with slider clipping - low stacking context */}
-        <div className="bg-primary absolute inset-0 z-10 [clip-path:circle(67.02%_at_51%_0px)] md:[clip-path:circle(55.10%_at_51%_0px)] lg:[clip-path:circle(48.19%_at_58.98%_7px)]">
+        <div className="bg-primary absolute inset-0 z-10 [clip-path:circle(67.02%_at_51%_0px)] md:[clip-path:circle(55.10%_at_51%_0px)] xl:[clip-path:circle(48.19%_at_58.98%_7px)]">
           {/* wheel of dishes  */}
           <div
             ref={containerRef}
-            className="absolute inset-x-0 bottom-0 size-180 lg:right-0 lg:-bottom-80 lg:left-auto"
+            className="absolute inset-x-0 top-60 mx-auto size-120 lg:size-180 xl:top-auto xl:right-0 xl:-bottom-80 xl:left-auto"
           >
             <svg viewBox="0 0 400 400">
               <path
@@ -177,14 +177,14 @@ export function Hero() {
                 alt={dish?.name || "Food dish"}
                 width={113}
                 height={113}
-                className="absolute top-0 left-0 z-10 size-40"
+                className="absolute top-0 left-0 z-10 size-30 lg:size-40"
               />
             ))}
           </div>
         </div>
 
         {/* container with content - high stacking context */}
-        <div className="relative z-20 container grid items-end gap-8 lg:grid-cols-[2fr_3fr] lg:gap-30">
+        <div className="relative z-20 container grid items-end gap-8 md:gap-16 xl:grid-cols-[2fr_3fr] xl:gap-30">
           {/* text box */}
           <div>
             <h1 className="grid gap-1 text-3xl sm:text-5xl">
@@ -211,7 +211,7 @@ export function Hero() {
           </div>
 
           {/* current plate and slider controls */}
-          <div className="-order-1 flex flex-col items-center lg:order-1">
+          <div className="-order-1 flex flex-col items-center xl:order-1">
             <Image
               ref={currentPlate}
               src={activeDish?.image || "/dishes/italian.svg"}
