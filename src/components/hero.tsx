@@ -48,6 +48,9 @@ export function Hero() {
   const prevButton = useRef<HTMLButtonElement>(null);
   const nextButton = useRef<HTMLButtonElement>(null);
 
+  let scrollCooldown = false;
+  const scrollDelay = 400;
+
   useGSAP(() => {
     /* make sure there are necessary elements to work with */
     if (!containerRef.current || dishPlates.current.length === 0) return;
@@ -84,7 +87,9 @@ export function Hero() {
     });
 
     function previous() {
-      console.log("Prev scroll");
+      // console.log("Prev scroll");
+      if (scrollCooldown) return;
+      scrollCooldown = true;
 
       const currentRotation = gsap.getProperty(
         containerRef.current,
@@ -97,10 +102,16 @@ export function Hero() {
       setActiveDishIndex((prevIndex) =>
         prevIndex === 0 ? dishes.length - 1 : prevIndex - 1,
       );
+
+      setTimeout(() => {
+        scrollCooldown = false;
+      }, scrollDelay);
     }
 
     function next() {
-      console.log("Next scroll");
+      // console.log("Next scroll");
+      if (scrollCooldown) return;
+      scrollCooldown = true;
 
       const currentRotation = gsap.getProperty(
         containerRef.current,
@@ -113,6 +124,10 @@ export function Hero() {
       setActiveDishIndex((prevIndex) =>
         prevIndex === dishes.length - 1 ? 0 : prevIndex + 1,
       );
+
+      setTimeout(() => {
+        scrollCooldown = false;
+      }, scrollDelay);
     }
 
     prevButton.current?.addEventListener("click", () => previous());
