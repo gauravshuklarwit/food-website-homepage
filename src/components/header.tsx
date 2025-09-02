@@ -31,7 +31,7 @@ export function Header() {
     <header className="absolute inset-x-0 top-0 isolate z-50 py-4 lg:py-9.5">
       <nav className="container flex items-center justify-between gap-1">
         {/* brand logo */}
-        <Link href="/" className="flex items-center gap-5">
+        <Link href="/" className="flex items-center gap-2 sm:gap-5">
           <Image
             src="/brand/logo.svg"
             alt="Food Stop logo"
