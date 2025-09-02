@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -117,6 +117,11 @@ export function Hero() {
 
     prevButton.current?.addEventListener("click", () => previous());
     nextButton.current?.addEventListener("click", () => next());
+  }, []);
+
+  // Animate current plate when active dish changes
+  useEffect(() => {
+    if (!currentPlate.current) return;
 
     gsap.fromTo(
       currentPlate.current,
@@ -131,7 +136,7 @@ export function Hero() {
         duration: 0.6,
       },
     );
-  }, []);
+  }, [activeDishIndex]);
 
   const dynamicStyles: { [key: string]: string | number | undefined } = {
     "--primary": activeDish.color,
