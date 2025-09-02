@@ -5,8 +5,8 @@ import { useRef, useState } from "react";
 
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
-import { Draggable, InertiaPlugin, MotionPathPlugin } from "gsap/all";
-gsap.registerPlugin(Draggable, InertiaPlugin, MotionPathPlugin);
+import { Draggable, InertiaPlugin, MotionPathPlugin, Observer } from "gsap/all";
+gsap.registerPlugin(Draggable, InertiaPlugin, MotionPathPlugin, Observer);
 
 import { Button } from "@/components/ui/button";
 
@@ -38,24 +38,24 @@ const dishes: DishItem[] = [
 ];
 
 export function Hero() {
-  const [activeDishIndex, setActiveDishIndex] = useState(0);
+  const [activeDishIndex, setActiveDishIndex] = useState(4);
   const activeDish = dishes[activeDishIndex];
 
+  const heroSection = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const dishPlates = useRef<Array<HTMLDivElement | null>>([]);
   const currentPlate = useRef<HTMLImageElement>(null);
+  const prevButton = useRef<HTMLButtonElement>(null);
+  const nextButton = useRef<HTMLButtonElement>(null);
 
-  // GSAP animation setup
   useGSAP(() => {
     /* make sure there are necessary elements to work with */
     if (!containerRef.current || dishPlates.current.length === 0) return;
 
-    // calculate positions for circular arrangement
+    // calculate no. of dishes
     const boxesAmount = dishes.length;
-    const step = 360 / boxesAmount;
-    let nextIndex = 0;
 
-    // initialize positions of dish plates along the circular path
+    // arrange dish plates
     gsap.set(dishPlates.current.filter(Boolean), {
       motionPath: {
         path: "#myPath",
@@ -67,23 +67,8 @@ export function Hero() {
       },
     });
 
-    // draggable functionality for rotation (for mobile devices)
-    Draggable.create(containerRef.current, {
-      type: "rotation",
-      inertia: true,
-
-      /* add snapping effect */
-      snap: (endVal) => {
-        const snap = gsap.utils.snap(step, endVal);
-        const modulus = snap % 360;
-        nextIndex = Math.abs((modulus > 0 ? 360 - modulus : modulus) / step);
-        return snap;
-      },
-
-      onDragEnd: () => {
-        setActiveDishIndex(nextIndex);
-      },
-    });
+    /* set rotation sensitivity */
+    const sensitivity = 0.5;
 
     // create quick rotation animation function
     const rotateTo = gsap.quickTo(containerRef.current, "rotation", {
@@ -91,22 +76,47 @@ export function Hero() {
       ease: "power2.out",
     });
 
-    // handle mouse wheel rotation
-    const handleWheel = (event: WheelEvent) => {
-      const sensitivity = 0.5;
+    Observer.create({
+      target: heroSection.current,
+      type: "wheel",
+      onUp: () => previous(),
+      onDown: () => next(),
+    });
+
+    function previous() {
+      console.log("Prev scroll");
+
       const currentRotation = gsap.getProperty(
         containerRef.current,
         "rotation",
       ) as number;
-      const newRotation = currentRotation + event.deltaY * sensitivity;
+      const newRotation = currentRotation - 50 * sensitivity;
       rotateTo(newRotation);
 
-      // Calculate index manually to update activeDish
-      const snapped = gsap.utils.snap(step, newRotation);
-      const modulus = snapped % 360;
-      const newIndex = Math.abs((modulus > 0 ? 360 - modulus : modulus) / step);
-      setActiveDishIndex(newIndex);
-    };
+      /* update active dish */
+      setActiveDishIndex((prevIndex) =>
+        prevIndex === 0 ? dishes.length - 1 : prevIndex - 1,
+      );
+    }
+
+    function next() {
+      console.log("Next scroll");
+
+      const currentRotation = gsap.getProperty(
+        containerRef.current,
+        "rotation",
+      ) as number;
+      const newRotation = currentRotation + 50 * sensitivity;
+      rotateTo(newRotation);
+
+      /* update active dish */
+      setActiveDishIndex((prevIndex) =>
+        prevIndex === dishes.length - 1 ? 0 : prevIndex + 1,
+      );
+    }
+
+    prevButton.current?.addEventListener("click", () => previous());
+    nextButton.current?.addEventListener("click", () => next());
 
     gsap.fromTo(
       currentPlate.current,
@@ -121,33 +131,14 @@ export function Hero() {
         duration: 0.6,
       },
     );
-
-    // add wheel event listener
-    document.addEventListener("wheel", handleWheel);
-
-    // cleanup function
-    return () => {
-      document.removeEventListener("wheel", handleWheel);
-    };
-  }, [activeDish, activeDishIndex]);
+  }, []);
 
   const dynamicStyles: { [key: string]: string | number | undefined } = {
     "--primary": activeDish.color,
   };
 
-  const handlePrevious = () => {
-    setActiveDishIndex((prevIndex) =>
-      prevIndex === 0 ? dishes.length - 1 : prevIndex - 1,
-    );
-  };
-  const handleNext = () => {
-    setActiveDishIndex((prevIndex) =>
-      prevIndex === dishes.length - 1 ? 0 : prevIndex + 1,
-    );
-  };
-
   return (
-    <section style={dynamicStyles}>
+    <section ref={heroSection} style={dynamicStyles}>
       <div className="relative mx-auto max-w-7xl overflow-hidden pt-92 xl:pt-74">
         {/* curve with slider clipping - low stacking context */}
         <div className="bg-primary absolute inset-0 z-10 [clip-path:circle(67.02%_at_51%_0px)] md:[clip-path:circle(55.10%_at_51%_0px)] xl:[clip-path:circle(48.19%_at_58.98%_7px)]">
@@ -225,8 +216,8 @@ export function Hero() {
               {/* left spoon */}
               <div className="flex items-center lg:hidden">
                 <button
+                  ref={prevButton}
                   className="z-10 -mr-2 cursor-pointer"
-                  onClick={handlePrevious}
                   aria-label="Previous"
                 >
                   <Image
@@ -260,8 +251,8 @@ export function Hero() {
                   className="min-w-9"
                 />
                 <button
+                  ref={nextButton}
                   className="z-10 -ml-2 cursor-pointer"
-                  onClick={handleNext}
                   aria-label="Next"
                 >
                   <Image
