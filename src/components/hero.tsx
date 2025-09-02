@@ -237,7 +237,7 @@ export function Hero() {
               </div>
               {/* current dish label */}
               <span className="bg-primary grid h-9 w-54 place-items-center rounded-full px-8 transition duration-200">
-                <p className="text-muted-foreground line-clamp-1 text-xs font-medium text-ellipsis">
+                <p className="text-muted-foreground line-clamp-1 text-center text-xs font-medium text-ellipsis">
                   {activeDish?.name}
                 </p>
               </span>
