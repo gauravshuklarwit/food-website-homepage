@@ -1,15 +1,16 @@
-# Food Stop - Food website homepage
+# Food website homepage
 
-Food website homepage built with Next.js, Tailwind CSS and GSAP. Features clean UI and interactive dish wheel carousel.
+Food website homepage built with Next.js, Tailwind CSS and GSAP. Features clean UI with smooth scrolling and interactive dish wheel carousel.
 
 ## Features
 
 - Next.js 15+ with App Router
+- GSAP powered interactive dish carousel
+- Smooth scrolling powered by Lenis for React
 - TypeScript for type safety
-- Tailwind CSS
+- Tailwind CSS v4
 - Responsive design
 - Component-based structure
-- Easy deployment on Vercel
 
 ## Tech Stack
 
@@ -17,7 +18,7 @@ Food website homepage built with Next.js, Tailwind CSS and GSAP. Features clean 
 - React
 - TypeScript
 - Tailwind CSS
-- GSAP
+- GreenSock Animation Platform (GSAP)
 
 ### Links
 
@@ -46,26 +47,24 @@ You can start editing the page by modifying `src/app/page.tsx`. The page auto-up
 ## Folder Structure
 
 ```bash
-├── public/                 # Static image assets
+├── public/                     # Static image assets
 └── src/
-    ├── app/                # App router pages/layouts
+    ├── app/                    # App router pages/layouts
+    │   ├── favicon.ico
     │   ├── globals.css
     │   ├── layout.tsx
     │   └── page.tsx
-    ├── components/         # Reusable UI components
+    ├── components/             # Reusable components
     │   ├── header.tsx
     │   ├── hero.tsx
     │   ├── icons.tsx
     │   ├── layout.tsx
-    │   └── ui/
+    │   ├── lenis-provider.tsx
+    │   └── ui/                 # UI components
     │       └── button.tsx
     └── lib/
-        └── utils.ts        # Utilities/helpers
+        └── utils.ts            # Utilities/helpers
 ```
-
-## Deployment
-
-Deploy easily on [Vercel](https://vercel.com/) or your preferred platform. See [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 
 ## Author
 
