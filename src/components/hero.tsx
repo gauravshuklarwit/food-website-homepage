@@ -139,13 +139,13 @@ export function Hero() {
 
   return (
     <section ref={heroSection} style={dynamicStyles}>
-      <div className="relative mx-auto max-w-7xl overflow-hidden pt-92 xl:pt-74">
+      <div className="relative mx-auto max-w-7xl overflow-hidden pt-62 md:pt-92 lg:pt-115 xl:pt-74">
         {/* curve with slider clipping - low stacking context */}
-        <div className="bg-primary absolute inset-0 z-10 [clip-path:circle(67.02%_at_51%_0px)] md:[clip-path:circle(55.10%_at_51%_0px)] xl:[clip-path:circle(48.19%_at_58.98%_7px)]">
+        <div className="bg-primary absolute inset-0 z-10 [clip-path:circle(56.27%_at_51%_0px)] md:[clip-path:circle(55.10%_at_51%_0px)] xl:[clip-path:circle(48.19%_at_58.98%_7px)]">
           {/* wheel of dishes  */}
           <div
             ref={containerRef}
-            className="absolute inset-x-0 top-60 mx-auto size-120 md:size-160 lg:size-180 xl:top-auto xl:right-0 xl:-bottom-80 xl:left-auto"
+            className="absolute inset-x-0 top-38 mx-auto size-120 md:size-160 lg:top-56 lg:size-180 xl:top-auto xl:right-0 xl:-bottom-80 xl:left-auto"
           >
             <svg viewBox="0 0 400 400">
               <path
